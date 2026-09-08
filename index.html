@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KelasFun — Aktivasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#F5F7F9;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{background:#fff;border-radius:20px;padding:36px 32px;width:100%;max-width:440px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
+  .logo{width:64px;height:64px;background:linear-gradient(135deg,#3D6B7D,#2E5566);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 12px rgba(61,107,125,.3)}
+  .logo svg{width:34px;height:34px;fill:#fff}
+  h1{text-align:center;font-size:24px;color:#1A2332;font-weight:800}
+  .tagline{text-align:center;font-size:13px;color:#5A6577;margin:4px 0 0}
+  .version{text-align:center;font-size:11px;color:#9CA3B0;margin-top:2px}
+  .divider{height:1px;background:#E2E6EB;margin:24px 0}
+  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+  .step-num{width:28px;height:28px;background:#3D6B7D;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+  .step-text{font-size:13px;color:#5A6577;line-height:1.5}
+  .step-text strong{color:#1A2332}
+  label{font-size:12px;font-weight:600;color:#5A6577;margin-bottom:6px;display:block}
+  input{width:100%;padding:14px;border:2px solid #E2E6EB;border-radius:12px;font-family:'Inter',sans-serif;font-size:18px;font-weight:700;letter-spacing:3px;text-align:center;color:#1A2332;outline:none;transition:border .2s;text-transform:uppercase}
+  input:focus{border-color:#3D6B7D}
+  input::placeholder{font-weight:400;letter-spacing:1px;font-size:14px;color:#C0C5CC;text-transform:none}
+  .btn{width:100%;padding:14px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:14px}
+  .btn-primary{background:#3D6B7D;color:#fff}
+  .btn-primary:hover{background:#2E5566;transform:translateY(-1px);box-shadow:0 4px 12px rgba(61,107,125,.3)}
+  .btn-primary:disabled{background:#B0B8C2;cursor:not-allowed;transform:none;box-shadow:none}
+  .result{margin-top:20px;display:none}
+  .result.show{display:block;animation:fadeIn .3s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .result-box{background:linear-gradient(135deg,#F0F7FA,#E8F4F8);border:2px solid #3D6B7D;border-radius:14px;padding:20px;text-align:center}
+  .result-label{font-size:11px;font-weight:600;color:#5A6577;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .result-key{font-size:24px;font-weight:800;color:#3D6B7D;letter-spacing:4px;padding:12px;background:#fff;border-radius:10px;border:1.5px solid #D0DDE3;user-select:all;margin-bottom:12px}
+  .btn-row{display:flex;gap:10px}
+  .btn-row .btn{flex:1;margin-top:0}
+  .btn-copy{background:#E2E6EB;color:#3D6B7D}
+  .btn-copy:hover{background:#D0D5DC}
+  .btn-wa{background:#25D366;color:#fff}
+  .btn-wa:hover{background:#1DA851}
+  .success-msg{margin-top:16px;padding:14px;background:#F0FFF4;border:1.5px solid #86EFAC;border-radius:10px;font-size:13px;color:#166534;text-align:center;display:none;line-height:1.6}
+  .success-msg.show{display:block;animation:fadeIn .3s ease}
+  .history-section{margin-top:24px}
+  .history-title{font-size:12px;font-weight:600;color:#9CA3B0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .clear-btn{background:none;border:none;color:#C0C5CC;font-size:11px;cursor:pointer}
+  .clear-btn:hover{color:#9E5C5C}
+  .h-item{padding:10px 12px;background:#F8FAFB;border-radius:8px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;border:1px solid #F0F4F8}
+  .h-device{font-size:13px;font-weight:700;color:#1A2332;letter-spacing:1px}
+  .h-key{font-size:12px;font-weight:600;color:#3D6B7D;letter-spacing:1px}
+  .h-time{font-size:10px;color:#9CA3B0}
+  .h-copy{background:none;border:1px solid #E2E6EB;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;color:#3D6B7D}
+  .h-copy:hover{background:#F0F4F8}
+  .empty{text-align:center;padding:16px;font-size:12px;color:#C0C5CC}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A2332;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <svg viewBox="0 0 24 24"><path d="M22 10l-10-6L2 10l10 6 10-6zm-10 1.5L4 6.5v7l8 5 8-5v-7l-8 5z"/></svg>
+  </div>
+  <h1>KelasFun</h1>
+  <p class="tagline">Aktivasi Aplikasi Manajemen Kelas</p>
+  <p class="version">v1.0.0</p>
+
+  <div class="divider"></div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">Buka aplikasi <strong>KelasFun</strong> di HP Anda, salin <strong>Device ID</strong> yang muncul di layar.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">Tempel <strong>Device ID</strong> di kolom bawah ini, lalu klik tombol.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">Masukkan <strong>Kode Aktivasi</strong> yang muncul ke aplikasi. Selesai!</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <label>Device ID Anda</label>
+  <input type="text" id="deviceId" placeholder="AB3F-9K2X-7M1P" maxlength="18" autofocus>
+
+  <button class="btn btn-primary" id="btnGenerate" onclick="generate()">
+    🔑 Dapatkan Kode Aktivasi
+  </button>
+
+  <div class="result" id="result">
+    <div class="result-box">
+      <div class="result-label">Kode Aktivasi Anda</div>
+      <div class="result-key" id="keyValue">—</div>
+      <div class="btn-row">
+        <button class="btn btn-copy" onclick="copyKey()">📋 Salin</button>
+        <button class="btn btn-wa" onclick="sendWA()">💬 Kirim ke WA</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-msg" id="successMsg">
+    ✅ Kode aktivasi berhasil didapatkan!<br>
+    Buka aplikasi <strong>KelasFun</strong> → Klik <strong>"Sudah punya kode?"</strong> → Masukkan kode → Selesai!
+  </div>
+
+  <div class="history-section">
+    <div class="history-title">
+      Riwayat
+      <button class="clear-btn" onclick="clearHistory()">Hapus semua</button>
+    </div>
+    <div id="historyList"><div class="empty">Belum ada riwayat</div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// HMAC-SHA256 Key Generation
+// ═══════════════════════════════════════════════
+const SECRET = 'KelasFun2026SecretKey$#@!';
+
+function formatDeviceId(input) {
+  // Remove all non-alphanumeric, auto-add dashes
+  let clean = input.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+  if (clean.length > 16) clean = clean.substring(0, 16);
+  
+  let formatted = '';
+  for (let i = 0; i < clean.length; i++) {
+    if (i > 0 && i % 4 === 0) formatted += '-';
+    formatted += clean[i];
+  }
+  return formatted;
+}
+
+async function hmacSha256(message) {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(SECRET);
+  const msgData = encoder.encode(message);
+  
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw', keyData, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  );
+  
+  const signature = await crypto.subtle.sign('HMAC', cryptoKey, msgData);
+  const hashArray = Array.from(new Uint8Array(signature));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function generateActivationKey(hash) {
+  // Take first 16 hex chars, format as XXXX-XXXX-XXXX-XXXX
+  const hex = hash.substring(0, 16).toUpperCase();
+  return `${hex.substring(0,4)}-${hex.substring(4,8)}-${hex.substring(8,12)}-${hex.substring(12,16)}`;
+}
+
+async function generate() {
+  const rawInput = document.getElementById('deviceId').value.trim();
+  if (!rawInput || rawInput.replace(/[^A-Za-z0-9]/g,'').length < 4) {
+    showToast('⚠️ Masukkan Device ID yang valid');
+    return;
+  }
+
+  const btn = document.getElementById('btnGenerate');
+  btn.disabled = true;
+  btn.textContent = '⏳ Menghitung...';
+
+  // Format device ID
+  const deviceId = formatDeviceId(rawInput);
+  document.getElementById('deviceId').value = deviceId;
+
+  // Generate HMAC-SHA256
+  const hash = await hmacSha256(deviceId);
+  const key = generateActivationKey(hash);
+
+  // Show result
+  document.getElementById('keyValue').textContent = key;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('successMsg').classList.add('show');
+
+  btn.disabled = false;
+  btn.textContent = '🔑 Dapatkan Kode Aktivasi';
+
+  // Save history
+  saveHistory(deviceId, key);
+
+  showToast('✅ Kode berhasil dibuat!');
+}
+
+function copyKey() {
+  const key = document.getElementById('keyValue').textContent;
+  navigator.clipboard.writeText(key).then(() => showToast('✅ Kode disalin!'));
+}
+
+function sendWA() {
+  const key = document.getElementById('keyValue').textContent;
+  const msg = `Halo! Berikut kode aktivasi KelasFun saya:\n\n*${key}*\n\nTerima kasih!`;
+  window.open(`https://wa.me/6282261407123?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════════
+// History (localStorage)
+// ═══════════════════════════════════════════════
+function getHistory() { return JSON.parse(localStorage.getItem('kf_history') || '[]'); }
+
+function saveHistory(deviceId, key) {
+  let h = getHistory();
+  h = h.filter(x => x.did !== deviceId);
+  h.unshift({ did: deviceId, key, t: new Date().toLocaleString('id-ID') });
+  if (h.length > 50) h = h.slice(0, 50);
+  localStorage.setItem('kf_history', JSON.stringify(h));
+  renderHistory();
+}
+
+function renderHistory() {
+  const h = getHistory();
+  const el = document.getElementById('historyList');
+  if (!h.length) { el.innerHTML = '<div class="empty">Belum ada riwayat</div>'; return; }
+  el.innerHTML = h.map(x => `
+    <div class="h-item">
+      <div>
+        <div class="h-device">${x.did}</div>
+        <div class="h-key">${x.key}</div>
+        <div class="h-time">${x.t}</div>
+      </div>
+      <button class="h-copy" onclick="navigator.clipboard.writeText('${x.key}').then(()=>showToast('✅ Disalin!'))">📋</button>
+    </div>
+  `).join('');
+}
+
+function clearHistory() { localStorage.removeItem('kf_history'); renderHistory(); }
+
+// Auto-format Device ID input
+document.getElementById('deviceId').addEventListener('input', function() {
+  this.value = formatDeviceId(this.value);
+});
+
+document.getElementById('deviceId').addEventListener('keydown', e => {
+  if (e.key === 'Enter') generate();
+});
+
+renderHistory();
+</script>
+</body>
+</html>
